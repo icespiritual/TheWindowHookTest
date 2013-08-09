@@ -10,6 +10,23 @@
 #define HOOK_API __declspec(dllimport)
 #endif
 
+/*typedef struct _InputRecord
+{
+	bool bMouse; // 1: mouse 0: keyboard
+	union{
+		struct {
+			unsigned short x;
+			unsigned short y;
+		}MouseRecord;
+		struct {
+			int	keyCode;
+		}KeyRecord;
+	};
+	DWORD dwTimeStamp;
+}InputRecord;
+
+typedef void (*SendInputRecord)(InputRecord* pRecord);*/
+
 // This class is exported from the Hook.dll
 class HOOK_API CHook {
 public:
@@ -22,4 +39,8 @@ extern "C"
 {
 HOOK_API LRESULT HookProc(int nCode, WPARAM wParam, LPARAM lParam);
 HOOK_API LRESULT KeyboardProc(int nCode, WPARAM wParam, LPARAM lParam);
+//HOOK_API void SetCallback(SendInputRecord func);
+HOOK_API void SetWindowHandle(HWND hWnd);
+HOOK_API void StartRecord(bool bTrue); // bTrue = true: start record , = false: end record
+//HOOK_API void GetRecordList(std::vector<InputRecord>* pList);
 }
